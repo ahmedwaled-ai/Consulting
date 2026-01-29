@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme {
+  /* تعريف الأنميشن بنظام v4 */
+  --animate-fade-in: fade-in 0.5s ease-out;
+
+  @keyframes fade-in {
+    0% { 
+      opacity: 0; 
+      transform: translateY(10px); 
+    }
+    100% { 
+      opacity: 1; 
+      transform: translateY(0); 
+    }
+  }
+}
+
+/* تنظيف إعدادات Vite الافتراضية التي تعطل التنسيق */
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  display: block; /* تغيير من flex لضمان عمل Tailwind بشكل طبيعي */
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+#root {
+  width: 100%; /* تمديد المحتوى لملء الشاشة */
+  margin: 0;
+  padding: 0;
+  text-align: left; /* بدلاً من center الافتراضي */
+}
+
+@layer base {
+  html, body {
+    /* يمنع الارتداد المزعج في الموبايل */
+    overscroll-behavior-y: none; 
+    @apply bg-black;
+  }
+
+  /* تحسين شكل السكرول بار في المتصفحات */
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-yellow-500/20 rounded-full hover:bg-yellow-500/50;
+  }
+}
