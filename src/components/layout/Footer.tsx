@@ -53,7 +53,7 @@ export default function FooterPro() {
     <footer className="relative bg-zinc-950 overflow-hidden pt-20 pb-10 border-t border-white/5">
       
       {/* --- 1. Animated Background Grid --- */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
+      <div className="absolute  inset-0 opacity-[0.03] pointer-events-none">
         <motion.div style={{ x, y }} className="w-[120%] h-[120%] -ml-[10%] -mt-[10%]">
           <div style={{
               backgroundImage: `linear-gradient(to right, #fff 1px, transparent 1px), linear-gradient(to bottom, #fff 1px, transparent 1px)`,
@@ -73,10 +73,10 @@ export default function FooterPro() {
         {/* ==============================================
             TOP SECTION: LOGO (Left) vs INPUT (Right)
            ============================================== */}
-        <div className="flex flex-col lg:flex-row justify-between items-end gap-12 border-b border-white/10 pb-16 mb-16">
+        <div className="flex flex-col px-10 lg:flex-row justify-between items-end gap-12 border-b border-white/10 pb-16 mb-16">
             
             {/* Left: Brand Identity */}
-            <div className="max-w-md">
+            <div className="max-w-md ">
                 <Link to="/" className="inline-flex items-center gap-3 mb-6 group">
                     <div className="w-12 h-12 bg-amber-500 flex items-center justify-center rounded-sm shadow-[0_0_20px_rgba(245,158,11,0.3)] group-hover:shadow-[0_0_30px_rgba(245,158,11,0.5)] transition-all duration-500">
                         <span className="text-black font-black text-2xl">C</span>
@@ -125,29 +125,68 @@ export default function FooterPro() {
         {/* ==============================================
             MIDDLE SECTION: LINKS & CONTACT CARDS
            ============================================== */}
-        <div className="grid lg:grid-cols-12 gap-12 mb-16">
+        <div className="grid lg:grid-cols-12 px-10 gap-12 mb-16">
             
             {/* Links Columns (7 Cols) */}
-            <div className="lg:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-8">
-                {footerLinks.map((section) => (
-                    <div key={section.title}>
-                        <h4 className="text-white font-bold uppercase tracking-widest text-xs mb-6">{section.title}</h4>
-                        <ul className="space-y-4">
-                            {section.links.map((link) => (
-                                <li key={link}>
-                                    <Link to="#" className="text-zinc-400 hover:text-amber-500 text-sm transition-colors flex items-center gap-2 group">
-                                        <span className="w-0 group-hover:w-2 h-[1px] bg-amber-500 transition-all duration-300"></span>
-                                        {link}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+            <div className="lg:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-12">
+    {footerLinks.map((section) => (
+        <div key={section.title}>
+            
+            <h4 className="text-white font-black uppercase tracking-[0.2em] text-[10px] mb-5 border-l-2 border-amber-500 pl-3">
+                {section.title}
+            </h4>
+            
+            
+            <ul className="space-y-2">
+                {section.links.map((link) => (
+                    <li key={link}>
+                        <Link 
+                            to="#" 
+                            className="text-zinc-400 hover:text-white text-[11px] font-medium transition-all duration-300 flex items-center gap-2 group"
+                        >
+                            
+                            <span className="w-1 h-1 rounded-full bg-zinc-600 group-hover:bg-amber-500 group-hover:scale-125 transition-all"></span>
+                            <span className="group-hover:translate-x-1 transition-transform">
+                                {link}
+                            </span>
+                        </Link>
+                    </li>
                 ))}
-            </div>
+            </ul>
+        </div>
+    ))}
+</div>
+            <div className="lg:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-10">
+    {footerLinks.map((section) => (
+        <div key={section.title}>
+            
+            <h4 className="text-white font-black uppercase tracking-[0.2em] text-[10px] mb-5 border-l-2 border-amber-500 pl-3">
+                {section.title}
+            </h4>
+            
+            {/* القائمة */}
+            <ul className="space-y-2">
+                {section.links.map((link) => (
+                    <li key={link}>
+                        <Link 
+                            to="#" 
+                            className="text-zinc-400 hover:text-white text-[11px] font-medium transition-all duration-300 flex items-center gap-2 group"
+                        >
+                            
+                            <span className="w-1 h-1 rounded-full bg-zinc-600 group-hover:bg-amber-500 group-hover:scale-125 transition-all"></span>
+                            <span className="group-hover:translate-x-1 transition-transform">
+                                {link}
+                            </span>
+                        </Link>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    ))}
+</div>
 
             {/* Contact Cards (5 Cols) */}
-            <div className="lg:col-span-5 flex flex-col gap-4">
+            <div className="lg:col-span-5 flex flex-col -translate-y-32 gap-4">
                 {[
                     { icon: Mail, label: "Business Inquiries", val: "partners@cid.com", color: "hover:border-amber-500/50" },
                     { icon: Phone, label: "Global HQ", val: "+1 (212) 555-0199", color: "hover:border-blue-500/50" },
@@ -169,12 +208,12 @@ export default function FooterPro() {
         {/* ==============================================
             BOTTOM SECTION
            ============================================== */}
-        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+        <div className="pt-8 border-t px-20 border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="text-zinc-500 text-xs flex items-center gap-1">
                 © 2026 CID Consulting Group. <span className="hidden md:inline">Built for visionaries.</span>
             </div>
             
-            <div className="flex gap-4">
+            <div className="flex gap-4 ">
                 {[Linkedin, Twitter, Facebook, Globe].map((Icon, i) => (
                     <a key={i} href="#" className="w-8 h-8 flex items-center justify-center rounded-full bg-white/5 hover:bg-amber-500 hover:text-black text-zinc-400 transition-all duration-300">
                         <Icon size={14} />

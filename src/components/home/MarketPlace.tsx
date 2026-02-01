@@ -10,36 +10,41 @@ export default function MarketPlace() {
   ];
 
   return (
-    <section className="relative h-screen bg-zinc-950 overflow-hidden flex flex-col justify-center py-4">
+    // Responsive Container: min-h-screen (Mobile) -> 2xl:h-screen (Large)
+    <section className="relative min-h-screen 2xl:h-screen bg-zinc-950 overflow-hidden flex flex-col justify-center py-16 md:py-8 2xl:py-24">
+      
+      {/* Background Effect */}
       <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: `linear-gradient(to right, #fff 1px, transparent 1px), linear-gradient(to bottom, #fff 1px, transparent 1px)`, backgroundSize: '60px 60px' }}></div>
 
-      <div className="max-w-7xl mx-auto px-8 relative z-10 w-full flex flex-col h-full justify-between max-h-[96vh]">
+      {/* Main Wrapper: Expanded for 2xl */}
+      <div className="max-w-7xl 2xl:max-w-450 mx-auto px-6 2xl:px-16 relative z-10 w-full flex flex-col h-full justify-between max-h-none md:max-h-[96vh] 2xl:max-h-none 2xl:justify-center 2xl:gap-12">
         
-        {/* Header - Compact */}
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="flex justify-between items-end mb-4"
+          className="flex flex-col md:flex-row justify-between items-end mb-8 md:mb-4 2xl:mb-12 gap-4 md:gap-0"
         >
           <div>
-            <div className="flex items-center gap-2 mb-1">
-              <ShoppingCart className="text-yellow-500" size={16} />
-              <span className="text-yellow-500 font-black text-[8px] tracking-[0.4em] uppercase">Digital Assets</span>
+            <div className="flex items-center gap-2 mb-1 2xl:mb-3">
+              <ShoppingCart className="text-yellow-500 w-4 h-4 2xl:w-6 2xl:h-6" />
+              <span className="text-yellow-500 font-black text-[8px] 2xl:text-xs tracking-[0.4em] uppercase">Digital Assets</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-black text-white tracking-tighter leading-none">
+            <h2 className="text-3xl md:text-5xl 2xl:text-7xl font-black text-white tracking-tighter leading-none">
               Resource <span className="text-transparent bg-clip-text bg-linear-to-r from-yellow-400 to-yellow-600">Marketplace</span>
             </h2>
           </div>
           
-          <button className="hidden md:flex items-center gap-2 bg-yellow-500 text-white border border-white/20 px-4 py-2 hover:bg-white hover:text-black hover:border-white transition-all text-[10px] font-black uppercase tracking-widest rounded-sm">
-                View All Products <ArrowUpRight size={14} />
-            </button>
+          <button className="hidden md:flex items-center gap-2 bg-yellow-500 text-white border border-white/20 px-4 py-2 2xl:px-6 2xl:py-3 hover:bg-white hover:text-black hover:border-white transition-all text-[10px] 2xl:text-sm font-black uppercase tracking-widest rounded-sm">
+                View All Products <ArrowUpRight size={14} className="2xl:w-5 2xl:h-5" />
+          </button>
       
         </motion.div>
 
-        {/* Products Grid - 4 Columns on desktop to save vertical space */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 flex-1 min-h-0 py-2">
+        {/* Products Grid */}
+        {/* Mobile: grid-cols-1, Tablet: grid-cols-2, Desktop: grid-cols-4 */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 2xl:gap-8 flex-1 min-h-0 py-2">
           {products.map((product, i) => (
             <motion.div
               key={product.id}
@@ -47,65 +52,69 @@ export default function MarketPlace() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.05 }}
-              className="group h-full flex flex-col bg-zinc-900 border border-white/5 hover:border-yellow-500/30 transition-all overflow-hidden"
+              className="group h-full flex flex-col bg-zinc-900 border border-white/5 hover:border-yellow-500/30 transition-all overflow-hidden rounded-lg"
             >
-              {/* Image - Fixed small height */}
-              <div className="relative h-32 md:h-40 shrink-0 overflow-hidden">
+              {/* Image - Responsive Height */}
+              <div className="relative h-48 md:h-32 2xl:h-72 shrink-0 overflow-hidden">
                 <img src={product.image} alt={product.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-transform duration-700 group-hover:scale-110" />
                 {product.badge && (
-                  <div className={`absolute top-2 right-2 px-2 py-1 font-black text-[7px] uppercase tracking-wider ${product.badge === 'Bestseller' ? 'bg-yellow-500 text-black' : 'bg-blue-500 text-white'}`}>
+                  <div className={`absolute top-2 right-2 px-2 2xl:px-4 py-1 2xl:py-2 font-black text-[7px] 2xl:text-[10px] uppercase tracking-wider ${product.badge === 'Bestseller' ? 'bg-yellow-500 text-black' : 'bg-blue-500 text-white'}`}>
                     {product.badge}
                   </div>
                 )}
               </div>
 
               {/* Content */}
-              <div className="p-4 flex-1 flex flex-col justify-between">
+              <div className="p-4 2xl:p-8 flex-1 flex flex-col justify-between">
                 <div>
-                  <h3 className="text-sm font-black text-white mb-1 group-hover:text-yellow-400 line-clamp-1">{product.name}</h3>
-                  <p className="text-slate-500 text-[10px] leading-tight line-clamp-2 mb-3">{product.description}</p>
+                  <h3 className="text-sm 2xl:text-2xl font-black text-white mb-1 2xl:mb-3 group-hover:text-yellow-400 line-clamp-1">{product.name}</h3>
+                  <p className="text-slate-500 text-[10px] 2xl:text-base leading-tight line-clamp-2 mb-3 2xl:mb-6">{product.description}</p>
                   
-                  {/* Features - Compact */}
-                  <div className="flex flex-wrap gap-x-3 gap-y-1 mb-3">
+                  {/* Features */}
+                  <div className="flex flex-wrap gap-x-3 gap-y-1 mb-3 2xl:mb-6">
                     {product.features.map((f, j) => (
-                      <div key={j} className="flex items-center gap-1 text-[8px] text-slate-400">
-                        <Zap className="text-yellow-500" size={8} /> {f}
+                      <div key={j} className="flex items-center gap-1 text-[8px] 2xl:text-xs text-slate-400">
+                        <Zap className="text-yellow-500 w-2 h-2 2xl:w-3 2xl:h-3" /> {f}
                       </div>
                     ))}
                   </div>
                 </div>
 
                 <div className="mt-auto">
-                  <div className="flex items-center justify-between mb-3 pt-2 border-t border-white/5">
-                    <div className="flex items-center gap-1 text-[10px] text-white font-bold">
-                      <Star className="text-yellow-500 fill-yellow-500" size={10} /> {product.rating}
+                  <div className="flex items-center justify-between mb-3 2xl:mb-5 pt-2 2xl:pt-4 border-t border-white/5">
+                    <div className="flex items-center gap-1 text-[10px] 2xl:text-sm text-white font-bold">
+                      <Star className="text-yellow-500 fill-yellow-500 w-2.5 h-2.5 2xl:w-4 2xl:h-4" /> {product.rating}
                     </div>
-                    <div className="text-white font-black text-lg">
-                      ${product.price}<span className="text-[8px] text-slate-500 font-normal">{product.pricing}</span>
+                    <div className="text-white font-black text-lg 2xl:text-3xl">
+                      ${product.price}<span className="text-[8px] 2xl:text-xs text-slate-500 font-normal">{product.pricing}</span>
                     </div>
                   </div>
-                  <button className="w-full py-2 bg-yellow-500 text-black font-black uppercase text-[9px] tracking-widest hover:bg-yellow-400 transition-all">Buy Now</button>
+                  <button className="w-full py-2 2xl:py-4 bg-yellow-500 text-black font-black uppercase text-[9px] 2xl:text-sm tracking-widest hover:bg-yellow-400 transition-all rounded-sm">
+                      Buy Now
+                  </button>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Bottom CTA - Completely flattened into a bar */}
+        {/* Bottom CTA */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="mt-4 p-4 bg-yellow-500/5 border border-yellow-500/20 flex flex-col md:flex-row items-center justify-between gap-4"
+          className="mt-8 md:mt-4 p-4 2xl:p-8 bg-yellow-500/5 border border-yellow-500/20 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0 rounded-lg"
         >
-          <div className="flex items-center gap-4">
-            <Lock className="text-yellow-500 shrink-0" size={24} />
-            <div className="text-left">
-              <h3 className="text-white font-black text-sm uppercase leading-none">Enterprise Licensing Available</h3>
-              <p className="text-slate-500 text-[10px] mt-1">Custom solutions and volume pricing for organizations.</p>
+          <div className="flex items-center gap-4 text-center md:text-left">
+            <Lock className="text-yellow-500 shrink-0 w-6 h-6 2xl:w-10 2xl:h-10" />
+            <div>
+              <h3 className="text-white font-black text-sm 2xl:text-xl uppercase leading-none mb-1">Enterprise Licensing Available</h3>
+              <p className="text-slate-500 text-[10px] 2xl:text-sm">Custom solutions and volume pricing for organizations.</p>
             </div>
           </div>
-          <button className="px-6 py-2 bg-white text-black font-black uppercase text-[9px] tracking-widest hover:bg-yellow-500 transition-all">Request Quote</button>
+          <button className="w-full md:w-auto px-6 2xl:px-10 py-2 2xl:py-4 bg-white text-black font-black uppercase text-[9px] 2xl:text-sm tracking-widest hover:bg-yellow-500 transition-all rounded-sm">
+              Request Quote
+          </button>
         </motion.div>
       </div>
     </section>

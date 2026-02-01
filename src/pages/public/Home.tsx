@@ -2,15 +2,13 @@ import HeroSlider from '../../components/home/HeroSlider';
 import CaseStudies from '../../components/home/CaseStudies'; 
 import ClientBrands from '../../components/home/ClientBrands';
 import CTA from '../../components/home/CTA';
-// import GroupServices from '../../components/home/GroupServices';
 import InsightsSection from '../../components/home/InsightsSection';
 import MarketPlace from '../../components/home/MarketPlace';
-import OperatingModel from '../../components/home/OperatingModel';
+// import OperatingModel from '../../components/home/OperatingModel';
 import OurDifferences from '../../components/home/OurDifferences';
 import PhilosphySection from '../../components/home/PhilosphySection';
 import Teams from '../../components/home/Teams';
 import Testimonials from '../../components/home/Testimonials';
-// import Subscribers from '../../components/home/Subscribers';
 import Metrics from '../../components/home/Metrics';
 
 import { useEffect, useState, useRef } from 'react';
@@ -137,7 +135,7 @@ export default function Home() {
                         <div className="h-px w-8 bg-amber-500"></div>
                         <h2 className="text-amber-500 font-bold tracking-[0.4em] uppercase text-xs">Our Impact</h2>
                     </div>
-                    <h3 className="text-5xl md:text-7xl font-black text-white tracking-tighter max-w-4xl leading-[1.1]">
+                    <h3 className="text-5xl md:text-6xl font-black text-white tracking-tighter max-w-4xl leading-[1.1]">
                         Quantifying excellence through <span className="text-transparent bg-clip-text bg-linear-to-r from-amber-400 to-amber-600">Golden Standards.</span>
                     </h3>
                 </div>
@@ -185,14 +183,12 @@ export default function Home() {
             <CaseStudies />
             <Teams />
             <Metrics />
-            <OperatingModel />
+            {/* <OperatingModel /> */}
             <OurDifferences />
-            {/* <GroupServices /> */}
             <Testimonials />
             <InsightsSection />
             <MarketPlace />
             <CTA />
-            {/* <Subscribers /> */}
         </div>
 
       </main>

@@ -1,5 +1,6 @@
 // src/App.tsx
-import { BrowserRouter , Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter , Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 
 // Context Providers
 import { AuthProvider } from './context/AuthProvider';
@@ -30,8 +31,7 @@ import Audit from './pages/public/Audit';
 import Advisory from './pages/public/Advisory';
 import Growth from './pages/public/Growth';
 import Insights from './pages/public/Insights';
-
-
+import StartAbusiness from './pages/public/StartAbusiness';
 
 // User Pages (Protected)
 import Booking from './pages/users/Booking';
@@ -42,15 +42,6 @@ import UserDashboard from './pages/users/UserDashboard';
 import {AdminDashboard} from './pages/admin/AdminDashboard';
 import {StaffManagement} from './pages/admin/StaffManagement';
 
-// Scroll to top on route change
-import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import StartAbusiness from './pages/public/StartAbusiness';
-
-
-
-
-
 function ScrollToTop() {
   const { pathname } = useLocation();
 
@@ -59,6 +50,31 @@ function ScrollToTop() {
   }, [pathname]);
 
   return null;
+}
+
+// 👇 1. مكون للتحكم في ظهور الـ Navbar (جديد)
+function NavbarControl() {
+  const location = useLocation();
+  // الصفحات التي سنخفي فيها النافبار
+  const hideNavbarPaths = ['/login', '/register'];
+
+  if (hideNavbarPaths.includes(location.pathname)) {
+    return null; // لا تظهر شيئاً
+  }
+
+  return <Navbar />; // أظهر النافبار الطبيعي
+}
+
+// 👇 2. مكون للتحكم في ظهور الـ Footer (موجود سابقاً)
+function FooterControl() {
+  const location = useLocation();
+  const hideFooterPaths = ['/login', '/register'];
+
+  if (hideFooterPaths.includes(location.pathname)) {
+    return null;
+  }
+
+  return <Footer />;
 }
 
 // 404 Not Found Page
@@ -88,12 +104,12 @@ function App() {
       <BrowserRouter>
         <ScrollToTop />
         <div className="min-h-screen bg-white">
-          {/* Fixed Navbar */}
-          <Navbar />
           
+          {/* 👇 استخدمنا NavbarControl بدلاً من Navbar المباشر */}
+          <NavbarControl />
           
-          {/* Main Content with padding-top for fixed navbar */}
-          <main                                                       >
+          {/* Main Content */}
+          <main>
             <Routes>
               {/* ========== Public Routes ========== */}
               <Route path="/" element={<Home />} />
@@ -104,7 +120,6 @@ function App() {
               <Route path="/philosophy" element={<Philosophy />} />
               <Route path="/industry" element={<Industry />} />
               <Route path="/impact" element={<Impact />} />
-              <Route path="/login" element={<Login />} />
               <Route path="/startabusiness" element={<StartAbusiness />} />
               <Route path="/insights" element={<Insights />} />
               
@@ -114,12 +129,6 @@ function App() {
               <Route path="/industry/advisory" element={<Advisory />} />
               <Route path="/industry/growth" element={<Growth />} />
 
-              
-
-              
-              
-
-              
               {/* ========== Auth Routes (Guest Only) ========== */}
               <Route 
                 path="/login" 
@@ -188,8 +197,8 @@ function App() {
             </Routes>
           </main>
           
-          {/* Footer */}
-          <Footer />
+          {/* 👇 التحكم في الفوتر */}
+          <FooterControl />
           
           {/* Floating ChatBot */}
           <ChatBot />

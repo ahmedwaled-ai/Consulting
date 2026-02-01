@@ -62,12 +62,12 @@ export default function OperatingModel() {
           className="text-center pt-4"
         >
           <div className="inline-flex items-center gap-3 mb-3">
-            <div className="w-8 h-[2px] bg-amber-600"></div>
+            <div className="w-8 h-0.5 bg-amber-600"></div>
             <span className="text-amber-700 font-bold text-[10px] tracking-[0.4em] uppercase">Our Methodology</span>
-            <div className="w-8 h-[2px] bg-amber-600"></div>
+            <div className="w-8 h-0.5 bg-amber-600"></div>
           </div>
           <h2 className="text-3xl md:text-5xl font-black text-zinc-900 tracking-tighter leading-none mb-2">
-            Operating <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-amber-800">Model.</span>
+            Operating <span className="text-transparent bg-clip-text bg-linear-to-r from-amber-600 to-amber-800">Model.</span>
           </h2>
           <p className="text-sm text-zinc-500 max-w-lg mx-auto font-bold">
             A proven 4-step framework transforming strategic ambition into measurable results.
@@ -78,7 +78,7 @@ export default function OperatingModel() {
         <div className="relative grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 flex-1 items-center">
           
           {/* Connecting Line (Darker to be visible on grey bg) */}
-          <div className="hidden lg:block absolute top-1/2 left-0 w-full h-[2px] bg-zinc-300 -z-10 transform -translate-y-1/2"></div>
+          <div className="hidden lg:block absolute top-1/2 left-0 w-full h-0.5 bg-zinc-300 -z-10 transform -translate-y-1/2"></div>
 
           {phases.map((phase, i) => (
             <motion.div
@@ -87,7 +87,7 @@ export default function OperatingModel() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.15 }}
-              className="group h-full max-h-[380px]"
+              className="group h-full max-h-95"
             >
               {/* Card is White (bg-white) to pop against the Grey (zinc-100) background */}
               <div className="bg-white border border-zinc-300 hover:border-amber-600 hover:shadow-2xl hover:shadow-zinc-400/20 transition-all duration-500 p-6 flex flex-col h-full rounded-lg relative overflow-hidden group-hover:-translate-y-2">

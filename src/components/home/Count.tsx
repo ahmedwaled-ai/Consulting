@@ -3,7 +3,7 @@ import { Globe, TrendingUp, Users, Award, ShieldCheck } from 'lucide-react';
 
 interface CounterProps {
   target: string;
-  duration?: number; // توحيد مدة الأنيميشن لكل الأرقام
+  duration?: number;
 }
 
 const Counter = memo(({ target, duration = 1200 }: CounterProps) => {
@@ -11,7 +11,6 @@ const Counter = memo(({ target, duration = 1200 }: CounterProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const domRef = useRef<HTMLDivElement>(null);
 
-  // Sanitization: تنقية المدخلات أمنياً
   const safeValue = target.replace(/[^-0-9+%.]/g, ''); 
   const numericTarget = parseInt(safeValue.replace(/\D/g, ''), 10) || 0;
   const suffix = safeValue.replace(/[0-9]/g, '');
@@ -36,7 +35,6 @@ const Counter = memo(({ target, duration = 1200 }: CounterProps) => {
       if (!startTimestamp) startTimestamp = timestamp;
       const progress = Math.min((timestamp - startTimestamp) / duration, 1);
       
-      // توحيد سرعة النهاية لكل الأرقام
       setCount(Math.floor(progress * numericTarget));
 
       if (progress < 1) {
@@ -49,7 +47,11 @@ const Counter = memo(({ target, duration = 1200 }: CounterProps) => {
   }, [isVisible, numericTarget, duration]);
 
   return (
-    <div ref={domRef} className="text-5xl md:text-7xl font-black tracking-tighter text-slate-900">
+    /* 📱 Mobile: text-4xl 
+       💻 Laptop: text-7xl 
+       🖥️ Large Screen (2xl): text-8xl 
+    */
+    <div ref={domRef} className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-black tracking-tighter text-slate-900">
       {count}{suffix}
     </div>
   );
@@ -64,34 +66,58 @@ export default function ImpactSection() {
   ];
 
   return (
-    /* شيلنا الـ BG والـ Shadow لزيادة النقاء البصري */
-    <section className="relative w-[95%] mx-auto py-24 mt-10 overflow-hidden">
+    /* تعديل الـ padding والـ width ليتناسب مع الموبايل والشاشات الكبيرة 
+       2xl:py-32 (زيادة الارتفاع للشاشات العملاقة)
+    */
+    <section className="relative w-full md:w-[95%] mx-auto py-16 md:py-24 2xl:py-32 mt-10 overflow-hidden">
       
-      {/* 🎯 الـ Container الموحد بالملّي: max-w-7xl و px الجانبي */}
-      <div className="relative max-w-7xl mx-auto px-4 md:px-12 lg:px-24 z-10">
+      {/* 2xl:max-w-[1600px] -> توسيع الكونتينر في الشاشات الكبيرة جداً 
+      */}
+      <div className="relative max-w-7xl 2xl:max-w-400 mx-auto px-6 md:px-12 lg:px-24 z-10">
         
-        {/* سطر الحماية (Security Badge) */}
-        <div className="flex items-center gap-2 mb-16 justify-center lg:justify-start">
+        {/* Security Badge */}
+        <div className="flex items-center gap-2 mb-12 md:mb-16 justify-center lg:justify-start">
           <div className="h-px w-8 bg-blue-600/30"></div>
-          <ShieldCheck size={14} className="text-blue-600" />
-          <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">Verified Impact Analytics</span>
+          
+          {/* أيقونة الحماية تكبر قليلاً في الشاشات الكبيرة */}
+          <ShieldCheck className="text-blue-600 w-3.5 h-3.5 2xl:w-5 2xl:h-5" />
+          
+          <span className="text-[10px] 2xl:text-xs font-black uppercase tracking-[0.3em] text-slate-400">
+            Verified Impact Analytics
+          </span>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-16 gap-x-8">
+        {/* Grid Layout:
+           gap-y-12 للموبايل عشان نوفر مساحة
+           gap-y-16 للتابلت
+           2xl:gap-y-24 للشاشات الكبيرة لإعطاء فخامة
+        */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-12 md:gap-y-16 2xl:gap-y-24 gap-x-4 md:gap-x-8">
           {stats.map((stat) => (
-            <div key={stat.id} className="group flex flex-col items-center lg:items-start space-y-6">
+            <div key={stat.id} className="group flex flex-col items-center lg:items-start space-y-4 md:space-y-6 2xl:space-y-8">
               
-              {/* أيقونة بسيطة بدون تعقيد بصري */}
+              {/* أيقونة مرنة الحجم */}
               <div className="text-slate-300 group-hover:text-blue-600 transition-colors duration-500">
-                <stat.icon size={32} strokeWidth={1.5} />
+                {/* w-8 h-8 للموبايل
+                    w-10 h-10 للديسك توب
+                    w-14 h-14 للشاشات الكبيرة (2xl)
+                */}
+                <stat.icon className="w-8 h-8 md:w-10 md:h-10 lg:w-9 lg:h-9 2xl:w-14 2xl:h-14" strokeWidth={1.5} />
               </div>
 
-              {/* العداد السريع */}
-              <div className="space-y-1 text-center lg:text-left">
-                {/* مدة 1200ms تجعل الأرقام تنتهي بسرعة وبشكل متزامن */}
+              {/* العداد */}
+              <div className="space-y-1 text-center lg:text-left w-full">
                 <Counter target={stat.value} duration={1200} />
-                <div className="h-1 w-8 bg-blue-600/20 group-hover:w-16 group-hover:bg-blue-600 transition-all duration-500 mx-auto lg:mx-0"></div>
-                <p className="text-slate-400 text-[10px] font-black uppercase tracking-[0.25em] pt-4">
+                
+                {/* الخط الفاصل يكبر مع الشاشة */}
+                <div className="h-1 w-8 bg-blue-600/20 group-hover:w-16 2xl:group-hover:w-24 group-hover:bg-blue-600 transition-all duration-500 mx-auto lg:mx-0"></div>
+                
+                {/* Label:
+                   text-[9px] للموبايل الصغير
+                   text-[10px] للطبيعي
+                   text-xs للشاشات الكبيرة
+                */}
+                <p className="text-slate-400 text-[9px] md:text-[10px] 2xl:text-xs font-black uppercase tracking-[0.25em] pt-4 2xl:pt-6">
                   {stat.label}
                 </p>
               </div>
